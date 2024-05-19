@@ -9,8 +9,8 @@
 .cardText {
   position: absolute;
   left: 50%;
-  top: 4rem;
-  transform: translateX(-50%);
+  top: calc(50% - 1rem);
+  transform: translate(-50%, -50%);
 }
 
 .cardContrast {
@@ -21,6 +21,12 @@
   bottom: 0;
   transform: translateX(-50%);
   border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.cardContent {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
 }
 
 .justifyBetween {

@@ -73,36 +73,24 @@ function ColorCard({ ...props }: ColorCardProps) {
           style={{ backgroundColor: chroma(customColor).brighten(3).toString() }}
         >
           <Box className={styles.justifyBetween} mt={10}>
-            <Text size="xs" fw={900}>
+            <Text size="xs" fw={700}>
               Contrast
             </Text>
-            <Text size="xs" fw={900} color={contrastValue ? 'darkgreen' : 'darkred'}>
-              {contrastValue.toFixed(2)}
-            </Text>
-          </Box>
-          <Divider color="black" my="sm" />
-          <Box className={styles.justifyCenter}>
-            <Badge
-              size="md"
-              variant="light"
-              leftSection={contrastValue >= 7 ? <FaCircleCheck /> : <MdCancel />}
-              color={contrastValue >= 7 ? 'darkgreen' : 'darkred'}
-            >
-              AAA
-            </Badge>{' '}
-            /{' '}
-            <Badge
-              variant="light"
-              leftSection={contrastValue >= 4.5 ? <FaCircleCheck /> : <MdCancel />}
-              size="md"
-              color={contrastValue >= 4.5 ? 'darkgreen' : 'darkred'}
-            >
-              AA
-            </Badge>
+            <Box className={styles.justifyBetween}>
+              <Text size="xs" fw={900} color={contrastValue ? 'darkgreen' : 'darkred'}>
+                {contrastValue.toFixed(2)}
+              </Text>
+              <Badge ml={10} size="xs" color={contrastValue >= 4.5 ? 'darkgreen' : 'darkred'}>
+                {contrastValue >= 7 ? ' AAA' : contrastValue >= 4.5 ? ' AA' : ' Fail'}
+              </Badge>
+            </Box>
           </Box>
         </Box>
       </Box>
-      <Box mt={10}>
+      <Box
+        className={styles.cardContent}
+        style={{ backgroundColor: chroma(customColor).brighten(4).toString() }}
+      >
         <ColorInput size="xs" value={customColor} onChange={handleOnchange} />
 
         <ButtonGroup
@@ -112,7 +100,7 @@ function ColorCard({ ...props }: ColorCardProps) {
         />
         <ButtonGroup colorText="RGB" colorValue={rgb} handleCopy={() => handleCopy(rgb)} />
         <ButtonGroup colorText="CMYK" colorValue={cmyk} handleCopy={() => handleCopy(cmyk)} />
-        <Button onClick={open} mt={10} size="xs" variant="outline" fullWidth color="blue">
+        <Button onClick={open} mt={10} size="xs" variant="light" color="red" fullWidth>
           Generate Swatch
         </Button>
       </Box>
@@ -132,7 +120,7 @@ const ButtonGroup = ({ ...props }: ButtonGroupProps) => {
 
   return (
     <Box className={styles.justifyBetween} mt={10}>
-      <Text size="xs" color="#333" fw={900}>
+      <Text size="xs" color="#333" fw={700}>
         {colorText}
       </Text>
       <Button
