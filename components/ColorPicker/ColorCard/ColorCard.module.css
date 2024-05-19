@@ -1,0 +1,37 @@
+.card {
+  border-radius: 0.5rem 0.5rem 0 0;
+  position: relative;
+  height: 300px;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.cardText {
+  position: absolute;
+  left: 50%;
+  top: 4rem;
+  transform: translateX(-50%);
+}
+
+.cardContrast {
+  position: absolute;
+  width: 100.5%;
+  padding: 0 1rem 0.5rem 1rem;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.justifyBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.justifyCenter {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
+}
