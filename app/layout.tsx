@@ -1,11 +1,12 @@
 import '@mantine/core/styles.css';
 import React from 'react';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
+
 import { theme } from '../theme';
 
 export const metadata = {
-  title: 'Mantine Next.js template',
-  description: 'I am using Mantine with Next.js!',
+  title: 'Colortastic!',
+  description: 'Create your own color schemes with Colortastic!',
 };
 
 export default function RootLayout({ children }: { children: any }) {
