@@ -13,19 +13,10 @@ interface InputNavigationProps {
 
 const InputNavigation = ({ ...props }: InputNavigationProps) => {
   const { value, onChange, contrast, setContrast, setType, setCount } = props;
-  const scrollContainer = useRef<HTMLDivElement | null>(null);
-
-  if (window && scrollContainer.current) {
-    window.addEventListener('scroll', () => {
-      if (scrollContainer.current) {
-        scrollContainer.current.style.display = window.scrollY > 200 ? 'none' : 'block';
-      }
-    });
-  }
 
   return (
     <Box className={styles.inputWrapper}>
-      <Box ref={scrollContainer}>
+      <Box>
         <Text fw={700} variant="h1">
           Create a Color Palette by adjusting the following settings
         </Text>
