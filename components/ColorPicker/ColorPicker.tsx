@@ -1,9 +1,10 @@
 'use client';
 import React from 'react';
 import { useState } from 'react';
-import { Box, ColorInput, NativeSelect, Notification, NumberInput } from '@mantine/core';
+import { Box, Notification } from '@mantine/core';
 import styles from './ColorPicker.module.css';
 import { ColorCard } from './ColorCard';
+import { InputNavigation } from './InputNavigation';
 
 import chroma from 'chroma-js';
 import { useDisclosure } from '@mantine/hooks';
@@ -25,6 +26,10 @@ function ColorPick() {
     message,
     click,
     harmony,
+    setCount,
+    setContrast,
+    setType,
+    onChange,
     open,
     close,
     setClick,
@@ -102,46 +107,7 @@ function ColorPick() {
       <Box style={{ position: 'fixed', bottom: '1rem', right: '1rem', zIndex: 1000 }}>
         {click && <Notification withBorder withCloseButton={false} title={message} />}
       </Box>
-
-      <Box className={styles.inputWrapper}>
-        <Box className={styles.inputContainer}>
-          <ColorInput
-            label="Set Primary Colour"
-            style={{ width: '100%' }}
-            value={value}
-            onChange={onChange}
-          />
-
-          <ColorInput
-            label="Set Contrast Colour"
-            style={{ width: '100%' }}
-            value={contrast}
-            onChange={setContrast}
-          />
-          <NativeSelect
-            label="Set Colour Harmony"
-            style={{ width: '100%' }}
-            onChange={(e) => setType(e.currentTarget.value)}
-            data={[
-              'Complementary',
-              'Analogous',
-              'Triadic',
-              'Split-complementary',
-              'Square',
-              'Tetradic',
-              'Monochromatic',
-            ]}
-          />
-          <NumberInput
-            label="Number of Colors"
-            style={{ width: '100%' }}
-            defaultValue={5}
-            onChange={(value: string | number) => setCount(value as number)}
-            max={10}
-            min={3}
-          />
-        </Box>
-      </Box>
+      <InputNavigation {...props} />
       <Box className={styles.grid}>
         {harmony.map((color, i) => (
           <ColorCard key={i} color={color} {...props} />
