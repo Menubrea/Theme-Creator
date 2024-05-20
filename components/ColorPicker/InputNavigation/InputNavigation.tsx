@@ -15,11 +15,13 @@ const InputNavigation = ({ ...props }: InputNavigationProps) => {
   const { value, onChange, contrast, setContrast, setType, setCount } = props;
   const scrollContainer = useRef<HTMLDivElement | null>(null);
 
-  window.addEventListener('scroll', () => {
-    if (scrollContainer.current) {
-      scrollContainer.current.style.display = window.scrollY > 200 ? 'none' : 'block';
-    }
-  });
+  if (window && scrollContainer.current) {
+    window.addEventListener('scroll', () => {
+      if (scrollContainer.current) {
+        scrollContainer.current.style.display = window.scrollY > 200 ? 'none' : 'block';
+      }
+    });
+  }
 
   return (
     <Box className={styles.inputWrapper}>
