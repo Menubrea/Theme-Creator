@@ -1,0 +1,5 @@
+.swatchContainer {
+  display: grid;
+  height: 500px;
+  grid-template-rows: repeat(auto-fill, 1fr);
+}
