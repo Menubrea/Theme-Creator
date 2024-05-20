@@ -4,11 +4,9 @@ import { useState, useEffect } from 'react';
 import { SwatchModal } from '../SwatchModal';
 import chroma from 'chroma-js';
 import { FaCopy } from 'react-icons/fa';
-import { FaCircleCheck } from 'react-icons/fa6';
-import { MdCancel } from 'react-icons/md';
 import styles from './ColorCard.module.css';
 
-import { Box, Text, Divider, Badge, Button, ColorInput } from '@mantine/core';
+import { Box, Text, Badge, Button, ColorInput } from '@mantine/core';
 
 interface ColorCardProps {
   color: string;
@@ -96,7 +94,7 @@ function ColorCard({ ...props }: ColorCardProps) {
         <ButtonGroup
           colorText="HEX"
           colorValue={chroma(customColor || color).hex()}
-          handleCopy={() => handleCopy(chroma(color).hex())}
+          handleCopy={() => handleCopy(chroma(customColor || color).hex())}
         />
         <ButtonGroup colorText="RGB" colorValue={rgb} handleCopy={() => handleCopy(rgb)} />
         <ButtonGroup colorText="CMYK" colorValue={cmyk} handleCopy={() => handleCopy(cmyk)} />
