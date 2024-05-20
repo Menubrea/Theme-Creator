@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import chroma from 'chroma-js';
 import { Box, Button, Modal, NumberInput } from '@mantine/core';
 import styles from './SwatchModal.module.css';
+import { IconBackground } from '@tabler/icons-react';
 
 interface SwatchModalProps {
   opened: boolean;
@@ -32,23 +33,30 @@ const SwatchModal = ({ ...props }: SwatchModalProps) => {
     <Modal
       centered
       size={'xl'}
-      title="Swatch Generator"
+      title={`Generating Swatches for ${chroma(value).name()}`}
       opened={opened}
       onClose={close}
       styles={{
         overlay: {
-          backgroundColor: 'rgba(0, 0, 0, .5)',
+          backgroundColor: `${chroma(value).darken(0.5).alpha(0.5).toString()}`,
+          backdropFilter: 'blur(5px)',
         },
-        header: { borderBottom: '1px solid #000' },
+        header: {
+          backgroundColor: `${value}`,
+          color: `${chroma(value).luminance() > 0.5 ? 'black' : 'white'}`,
+        },
         body: {
           padding: 0,
+        },
+        close: {
+          backgroundColor: `${chroma(value).darken(1).toString()}`,
+          color: `${chroma(value).luminance() > 0.5 ? 'black' : 'white'}`,
         },
       }}
     >
       <Box style={{ display: 'flex', gap: 10, width: '100%', padding: 10 }}>
         <NumberInput
           label="Number of Swatches"
-          description="Number of swatches in total"
           style={{ width: '100%' }}
           min={5}
           max={9}
@@ -58,7 +66,6 @@ const SwatchModal = ({ ...props }: SwatchModalProps) => {
         <NumberInput
           label="Intensity of Swatches"
           style={{ width: '100%' }}
-          description="Variation between swatches"
           min={1}
           max={4}
           defaultValue={2}
