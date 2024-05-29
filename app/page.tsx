@@ -1,9 +1,9 @@
-import ColorPick from '../components/ColorPicker/ColorPicker';
+import { Container } from '../components/layout';
 
 export default function HomePage() {
   return (
     <>
-      <ColorPick />
+      <Container>Homepage</Container>
     </>
   );
 }

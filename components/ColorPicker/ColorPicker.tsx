@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { useState } from 'react';
-import { Box, Notification } from '@mantine/core';
+import { Box, Notification, Skeleton } from '@mantine/core';
 import styles from './ColorPicker.module.css';
 import { ColorCard } from './ColorCard';
 import { InputNavigation } from './InputNavigation';
@@ -10,14 +10,19 @@ import chroma from 'chroma-js';
 import { useDisclosure } from '@mantine/hooks';
 
 function ColorPick() {
-  const [value, onChange] = useState('#2b888f');
+  const [value, onChange] = useState('#195c61');
   const [type, setType] = useState<string>('Complementary');
   const [harmony, setHarmony] = useState<string[]>([]);
-  const [contrast, setContrast] = useState<string>('#000000');
+  const [contrast, setContrast] = useState<string>('#ffffff');
   const [opened, { open, close }] = useDisclosure(false);
   const [count, setCount] = useState(5);
   const [click, setClick] = useState(false);
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 20);
 
   const props = {
     contrast,
@@ -109,12 +114,21 @@ function ColorPick() {
       </Box>
       <InputNavigation {...props} />
       <Box className={styles.grid}>
-        {harmony.map((color, i) => (
-          <ColorCard key={i} color={color} {...props} />
-        ))}
+        {loading
+          ? [...Array(5)].map((_, i) => <SkeletonCard key={i} />)
+          : harmony.map((color, i) => <ColorCard key={i} color={color} {...props} />)}
       </Box>
     </Box>
   );
 }
+
+const SkeletonCard = () => {
+  return (
+    <Box>
+      <Skeleton height={300} />
+      <Skeleton mt={10} height={215} />
+    </Box>
+  );
+};
 
 export default ColorPick;

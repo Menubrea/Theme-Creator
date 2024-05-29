@@ -1,0 +1,11 @@
+.container {
+  border-bottom: 0.3px solid rgba(0, 0, 0, 0.217);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: center;
+}

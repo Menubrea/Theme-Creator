@@ -22,6 +22,7 @@ function ColorCard({ ...props }: ColorCardProps) {
   const [customColor, setCustomColor] = useState<string>(color);
   const [contrastValue, setContrastValue] = useState<number>(0);
   const [opened, { open, close }] = useDisclosure(false);
+
   let rgb = chroma(customColor || color)
     .rgb()
     .splice(0, 3)
@@ -98,7 +99,7 @@ function ColorCard({ ...props }: ColorCardProps) {
         />
         <ButtonGroup colorText="RGB" colorValue={rgb} handleCopy={() => handleCopy(rgb)} />
         <ButtonGroup colorText="CMYK" colorValue={cmyk} handleCopy={() => handleCopy(cmyk)} />
-        <Button onClick={open} mt={10} size="xs" variant="light" color="red" fullWidth>
+        <Button onClick={open} mt={10} size="xs" color="blue" fullWidth>
           Generate Swatch
         </Button>
       </Box>
@@ -117,7 +118,7 @@ const ButtonGroup = ({ ...props }: ButtonGroupProps) => {
   const { colorText, colorValue, handleCopy } = props;
 
   return (
-    <Box className={styles.justifyBetween} mt={10}>
+    <Box className={styles.buttonGroup} mt={10}>
       <Text size="xs" color="#333" fw={700}>
         {colorText}
       </Text>

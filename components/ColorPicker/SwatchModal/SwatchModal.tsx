@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import chroma from 'chroma-js';
-import { Box, Button, Modal, NumberInput } from '@mantine/core';
+import { Box, Button, Flex, Modal, NumberInput, Text } from '@mantine/core';
 import styles from './SwatchModal.module.css';
-import { IconBackground } from '@tabler/icons-react';
+import { hexToCMYK } from '@/app/helpers';
 
 interface SwatchModalProps {
   opened: boolean;
@@ -85,23 +85,54 @@ const SwatchModal = ({ ...props }: SwatchModalProps) => {
             }}
           >
             <SwatchButton text={color} />
+            <SwatchButton text={color} colorFormat="rgb" />
+            <SwatchButton text={color} colorFormat="cmyk" />
           </Box>
         ))}
       </Box>
+      <Button fullWidth style={{ borderRadius: 0 }}>
+        Export Swatch
+      </Button>
     </Modal>
   );
 };
 
 interface SwatchButtonProps {
   text: string;
+  colorFormat?: 'hex' | 'rgb' | 'cmyk';
 }
 
 const SwatchButton = ({ ...props }: SwatchButtonProps) => {
-  const { text } = props;
+  const { text, colorFormat } = props;
   const [copied, setCopied] = useState(false);
+  const [colorText, setColorText] = useState('');
 
-  const handleCopy = (value: string) => {
-    navigator.clipboard.writeText(value);
+  useEffect(() => {
+    switch (colorFormat) {
+      case 'rgb':
+        setColorText(chroma(text).rgb().toString().split(',').join(', '));
+
+        break;
+      case 'cmyk':
+        setColorText(
+          Object.values(hexToCMYK(text))
+            .map((val) => Math.round(val * 100))
+            .join(', ')
+        );
+        break;
+      default:
+        setColorText(text);
+        break;
+    }
+  }, [text, colorFormat]);
+
+  useEffect(() => {
+    if (copied) {
+      navigator.clipboard.writeText(colorText);
+    }
+  }, [copied]);
+
+  const handleCopy = () => {
     setCopied(true);
 
     setTimeout(() => {
@@ -111,11 +142,12 @@ const SwatchButton = ({ ...props }: SwatchButtonProps) => {
 
   return (
     <Button
-      onClick={(e) => handleCopy((e.target as HTMLButtonElement).value)}
+      onClick={handleCopy}
+      style={{ width: 150 }}
       variant="subtle"
       color={chroma(text).luminance() > 0.5 ? 'black' : 'white'}
     >
-      {copied ? 'Copied' : text}
+      {copied ? 'Copied!' : colorText}
     </Button>
   );
 };
