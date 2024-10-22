@@ -1,6 +1,6 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import chroma from 'chroma-js';
-import { Box, Button, Flex, Modal, NumberInput, Text } from '@mantine/core';
+import { Box, Button, Modal, NumberInput, Text } from '@mantine/core';
 import styles from './SwatchModal.module.css';
 import { hexToCMYK } from '@/app/helpers';
 
@@ -13,7 +13,7 @@ interface SwatchModalProps {
 const SwatchModal = ({ ...props }: SwatchModalProps) => {
   const { opened, close, customColor: value } = props;
   const [count, setCount] = useState(5);
-  const [intensity, setIntensity] = useState(2);
+  const [intensity, setIntensity] = useState(1);
 
   const handleCountChange = (value: string | number) => {
     setCount(value as number);
@@ -68,7 +68,7 @@ const SwatchModal = ({ ...props }: SwatchModalProps) => {
           style={{ width: '100%' }}
           min={1}
           max={4}
-          defaultValue={2}
+          defaultValue={1}
           onChange={handleIntensityChange}
         />
       </Box>
@@ -82,17 +82,16 @@ const SwatchModal = ({ ...props }: SwatchModalProps) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              gap: '1rem',
             }}
           >
             <SwatchButton text={color} />
             <SwatchButton text={color} colorFormat="rgb" />
+
             <SwatchButton text={color} colorFormat="cmyk" />
           </Box>
         ))}
       </Box>
-      <Button fullWidth style={{ borderRadius: 0 }}>
-        Export Swatch
-      </Button>
     </Modal>
   );
 };
@@ -141,14 +140,19 @@ const SwatchButton = ({ ...props }: SwatchButtonProps) => {
   };
 
   return (
-    <Button
-      onClick={handleCopy}
-      style={{ width: 150 }}
-      variant="subtle"
-      color={chroma(text).luminance() > 0.5 ? 'black' : 'white'}
-    >
-      {copied ? 'Copied!' : colorText}
-    </Button>
+    <Box style={{ display: 'flex', gap: '.5rem', alignItems: 'center' }}>
+      <Text style={{ color: `${chroma(text).luminance() > 0.5 ? 'black' : 'white'}` }} fw={700}>
+        {colorFormat ? `${colorFormat.toUpperCase()}:` : 'HEX:'}
+      </Text>
+      <Button
+        onClick={handleCopy}
+        style={{ width: 150 }}
+        variant="subtle"
+        color={chroma(text).luminance() > 0.5 ? 'black' : 'white'}
+      >
+        {copied ? 'Copied!' : colorText}
+      </Button>
+    </Box>
   );
 };
 

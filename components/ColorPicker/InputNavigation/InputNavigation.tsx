@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Box, ColorInput, NativeSelect, NumberInput, Text } from '@mantine/core';
 import styles from './InputNavigation.module.css';
 
@@ -10,6 +10,16 @@ interface InputNavigationProps {
   setType: (value: string) => void;
   setCount: (value: number) => void;
 }
+
+const data: string[] = [
+  'Complementary',
+  'Analogous',
+  'Triadic',
+  'Split-complementary',
+  'Square',
+  'Tetradic',
+  'Monochromatic',
+];
 
 const InputNavigation = ({ ...props }: InputNavigationProps) => {
   const { value, onChange, contrast, setContrast, setType, setCount } = props;
@@ -28,7 +38,6 @@ const InputNavigation = ({ ...props }: InputNavigationProps) => {
       <Box className={styles.inputContainer}>
         <Box className={styles.flex}>
           <ColorInput
-            size="xs"
             label="Primary Colour"
             style={{ width: '100%' }}
             value={value}
@@ -37,7 +46,6 @@ const InputNavigation = ({ ...props }: InputNavigationProps) => {
 
           <ColorInput
             label="Contrast Colour"
-            size="xs"
             style={{ width: '100%' }}
             value={contrast}
             onChange={setContrast}
@@ -46,22 +54,12 @@ const InputNavigation = ({ ...props }: InputNavigationProps) => {
         <Box className={styles.flex}>
           <NativeSelect
             label="Colour Harmony"
-            size="xs"
             style={{ width: '100%' }}
             onChange={(e) => setType(e.currentTarget.value)}
-            data={[
-              'Complementary',
-              'Analogous',
-              'Triadic',
-              'Split-complementary',
-              'Square',
-              'Tetradic',
-              'Monochromatic',
-            ]}
+            data={data}
           />
           <NumberInput
             label="Number of Colors"
-            size="xs"
             style={{ width: '100%' }}
             defaultValue={5}
             onChange={(value: string | number) => setCount(value as number)}

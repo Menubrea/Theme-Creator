@@ -5,7 +5,6 @@ import { SwatchModal } from '../SwatchModal';
 import chroma from 'chroma-js';
 import { FaCopy } from 'react-icons/fa';
 import styles from './ColorCard.module.css';
-
 import { Box, Text, Badge, Button, ColorInput } from '@mantine/core';
 
 interface ColorCardProps {
@@ -99,7 +98,7 @@ function ColorCard({ ...props }: ColorCardProps) {
         />
         <ButtonGroup colorText="RGB" colorValue={rgb} handleCopy={() => handleCopy(rgb)} />
         <ButtonGroup colorText="CMYK" colorValue={cmyk} handleCopy={() => handleCopy(cmyk)} />
-        <Button onClick={open} mt={10} size="xs" color="blue" fullWidth>
+        <Button onClick={open} mt={10} size="xs" color="rgba(52, 63, 61, 1)" fullWidth>
           Generate Swatch
         </Button>
       </Box>
