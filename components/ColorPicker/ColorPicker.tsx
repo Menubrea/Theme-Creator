@@ -10,7 +10,7 @@ import chroma from 'chroma-js';
 import { useDisclosure } from '@mantine/hooks';
 
 function ColorPick() {
-  const [value, onChange] = useState('#343F3D');
+  const [value, onChange] = useState('#367166');
   const [type, setType] = useState<string>('Complementary');
   const [harmony, setHarmony] = useState<string[]>([]);
   const [contrast, setContrast] = useState<string>('#ffffff');
