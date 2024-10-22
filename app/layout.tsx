@@ -1,8 +1,10 @@
 import '@mantine/core/styles.css';
+import { Appshell } from '../components/Appshell';
 import React from 'react';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 
 import { theme } from '../theme';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
   title: 'Colortastic!',
@@ -21,7 +23,10 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <Analytics />
+        <MantineProvider theme={theme}>
+          <Appshell>{children}</Appshell>
+        </MantineProvider>
       </body>
     </html>
   );
