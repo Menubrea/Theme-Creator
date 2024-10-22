@@ -7,8 +7,8 @@ import { theme } from '../theme';
 import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
-  title: 'Colortastic!',
-  description: 'Create your own color schemes with Colortastic!',
+  title: 'TH | Palette',
+  description: 'Create and share color palettes',
 };
 
 export default function RootLayout({ children }: { children: any }) {
