@@ -11,9 +11,9 @@ const mainLinks = [
 ];
 
 const userLinks = [
-  { link: '#', label: 'Privacy & Security' },
-  { link: '#', label: 'Account settings' },
-  { link: '#', label: 'Support options' },
+  { link: '#', label: 'Temp Link 1' },
+  { link: '#', label: 'Temp Link 2' },
+  { link: '#', label: 'Temp Link 3' },
 ];
 
 const Header = () => {
