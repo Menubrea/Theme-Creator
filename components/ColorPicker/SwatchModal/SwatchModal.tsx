@@ -87,7 +87,6 @@ const SwatchModal = ({ ...props }: SwatchModalProps) => {
           >
             <SwatchButton text={color} />
             <SwatchButton text={color} colorFormat="rgb" />
-
             <SwatchButton text={color} colorFormat="cmyk" />
           </Box>
         ))}

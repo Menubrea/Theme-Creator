@@ -48,7 +48,7 @@ const Footer = () => {
   return (
     <Box className={styles.container}>
       <footer className={styles.footer}>
-        <img src={svglogo.src} alt="logo" />
+        <img src={svglogo.src} alt="logo" width={50} />
         <Socials />
       </footer>
     </Box>
