@@ -7,8 +7,8 @@ import { theme } from '../theme';
 import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
-  title: 'TH | Palette',
-  description: 'Create and share color palettes',
+  title: 'Youi Design',
+  description: 'Create Web Accessible Colour Palettes and Type Scales',
 };
 
 export default function RootLayout({ children }: { children: any }) {

@@ -9,6 +9,7 @@ interface InputNavigationProps {
   setContrast: (value: string) => void;
   setType: (value: string) => void;
   setCount: (value: number) => void;
+  setIntensity: (value: number) => void;
 }
 
 const data: string[] = [
@@ -22,7 +23,7 @@ const data: string[] = [
 ];
 
 const InputNavigation = ({ ...props }: InputNavigationProps) => {
-  const { value, onChange, contrast, setContrast, setType, setCount } = props;
+  const { value, onChange, contrast, setContrast, setType, setCount, setIntensity } = props;
 
   return (
     <Box className={styles.inputWrapper}>
@@ -65,6 +66,14 @@ const InputNavigation = ({ ...props }: InputNavigationProps) => {
             onChange={(value: string | number) => setCount(value as number)}
             max={10}
             min={3}
+          />
+          <NumberInput
+            label="Intensity"
+            style={{ width: '100%' }}
+            defaultValue={5}
+            onChange={(e) => setIntensity(e as number)}
+            max={10}
+            min={1}
           />
         </Box>
       </Box>

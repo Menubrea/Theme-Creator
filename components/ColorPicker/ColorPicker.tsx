@@ -1,16 +1,15 @@
 'use client';
 import React from 'react';
 import { useState } from 'react';
-import { Box, Notification, Skeleton } from '@mantine/core';
+import { Box, Notification, Skeleton, Container } from '@mantine/core';
 import styles from './ColorPicker.module.css';
 import { ColorCard } from './ColorCard';
 import { InputNavigation } from './InputNavigation';
-
 import chroma from 'chroma-js';
 import { useDisclosure } from '@mantine/hooks';
 
 function ColorPick() {
-  const [value, onChange] = useState('#367166');
+  const [value, onChange] = useState('#822C76');
   const [type, setType] = useState<string>('Complementary');
   const [harmony, setHarmony] = useState<string[]>([]);
   const [contrast, setContrast] = useState<string>('#ffffff');
@@ -19,10 +18,11 @@ function ColorPick() {
   const [click, setClick] = useState(false);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(true);
+  const [intensity, setIntensity] = useState(5);
 
   setTimeout(() => {
     setLoading(false);
-  }, 20);
+  }, 30);
 
   const props = {
     contrast,
@@ -31,6 +31,7 @@ function ColorPick() {
     message,
     click,
     harmony,
+    intensity,
     setCount,
     setContrast,
     setType,
@@ -39,6 +40,7 @@ function ColorPick() {
     close,
     setClick,
     setMessage,
+    setIntensity,
   };
 
   React.useEffect(() => {
@@ -49,25 +51,54 @@ function ColorPick() {
     switch (type) {
       case 'Complementary':
         harmonyColors = chroma
-          .scale([value, chroma(value).set('hsl.h', '+180')])
+          .scale([
+            value,
+            chroma(value)
+              .darken(intensity / 5)
+              .set('hsl.h', '+180'),
+          ])
           .mode('lab')
           .colors(count);
         break;
       case 'Analogous':
         harmonyColors = chroma
-          .scale([chroma(value).set('hsl.h', '-30'), value, chroma(value).set('hsl.h', '+30')])
+          .scale([
+            chroma(value)
+              .brighten(intensity / 5)
+              .set('hsl.h', '-30'),
+            value,
+            chroma(value)
+              .darken(intensity / 5)
+              .set('hsl.h', '+30'),
+          ])
           .mode('lab')
           .colors(count);
         break;
       case 'Triadic':
         harmonyColors = chroma
-          .scale([value, chroma(value).set('hsl.h', '+120'), chroma(value).set('hsl.h', '-120')])
+          .scale([
+            value,
+            chroma(value)
+              .brighten(intensity / 5)
+              .set('hsl.h', '+120'),
+            chroma(value)
+              .darken(intensity / 5)
+              .set('hsl.h', '-120'),
+          ])
           .mode('lab')
           .colors(count);
         break;
       case 'Split-complementary':
         harmonyColors = chroma
-          .scale([value, chroma(value).set('hsl.h', '+150'), chroma(value).set('hsl.h', '-150')])
+          .scale([
+            value,
+            chroma(value)
+              .brighten(intensity / 5)
+              .set('hsl.h', '+150'),
+            chroma(value)
+              .darken(intensity / 5)
+              .set('hsl.h', '-150'),
+          ])
           .mode('lab')
           .colors(count);
         break;
@@ -95,7 +126,11 @@ function ColorPick() {
         break;
       case 'Monochromatic':
         harmonyColors = chroma
-          .scale([chroma(value).brighten(2), value, chroma(value).darken(2)])
+          .scale([
+            chroma(value).brighten(intensity / 5),
+            value,
+            chroma(value).darken(intensity / 5),
+          ])
           .mode('lab')
           .colors(count);
         break;
@@ -105,10 +140,10 @@ function ColorPick() {
     }
 
     setHarmony(harmonyColors);
-  }, [value, type, count]);
+  }, [value, type, count, intensity]);
 
   return (
-    <Box style={{ position: 'relative' }}>
+    <Container fluid style={{ position: 'relative' }}>
       <Box style={{ position: 'fixed', bottom: '1rem', right: '1rem', zIndex: 1000 }}>
         {click && <Notification withBorder withCloseButton={false} title={message} />}
       </Box>
@@ -118,7 +153,7 @@ function ColorPick() {
           ? [...Array(5)].map((_, i) => <SkeletonCard key={i} />)
           : harmony.map((color, i) => <ColorCard key={i} color={color} {...props} />)}
       </Box>
-    </Box>
+    </Container>
   );
 }
 
