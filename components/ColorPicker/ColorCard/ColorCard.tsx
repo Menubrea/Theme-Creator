@@ -98,7 +98,7 @@ function ColorCard({ ...props }: ColorCardProps) {
         />
         <ButtonGroup colorText="RGB" colorValue={rgb} handleCopy={() => handleCopy(rgb)} />
         <ButtonGroup colorText="CMYK" colorValue={cmyk} handleCopy={() => handleCopy(cmyk)} />
-        <Button onClick={open} mt={10} size="xs" color="rgba(52, 63, 61, 1)" fullWidth>
+        <Button onClick={open} mt={10} size="xs" color="#822C76" fullWidth>
           Generate Swatch
         </Button>
       </Box>
